@@ -58,8 +58,8 @@
         </dependency>
         <dependency>
             <groupId>io.lippia.report</groupId>
-            <artifactId>cucumber4-adapter</artifactId>
-            <version>1.7.1</version>
+            <artifactId>ltm-cucumber4-adapter</artifactId>
+            <version>1.4</version>
         </dependency>
         <dependency>
             <groupId>io.lippia.report</groupId>
@@ -120,6 +120,16 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>${apiExample.runner}</suiteXmlFile>
                     </suiteXmlFiles>
+                    <systemPropertyVariables>
+                        <TEST_MANAGER_USERNAME></TEST_MANAGER_USERNAME>
+                        <TEST_MANAGER_PASSWORD></TEST_MANAGER_PASSWORD>
+                        <TEST_MANAGER_API_HOST></TEST_MANAGER_API_HOST>
+                        <TEST_MANAGER_API_PORT></TEST_MANAGER_API_PORT>
+                        <TEST_MANAGER_RUN_NAME></TEST_MANAGER_RUN_NAME>
+                        <TEST_MANAGER_PROJECT_CODE></TEST_MANAGER_PROJECT_CODE>
+                        <TEST_MANAGER_REPOSITORY_URL></TEST_MANAGER_REPOSITORY_URL>
+                        <TEST_MANAGER_REPOSITORY_BRANCH></TEST_MANAGER_REPOSITORY_BRANCH>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
