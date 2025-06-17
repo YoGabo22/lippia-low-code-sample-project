@@ -112,7 +112,7 @@ Feature: tp8LowCode
     #b. Agregar horas a un proyecto.
     #c. Editar un campo de algún registro de hora.
     #d. Eliminar hora registrada.
-  @CheckAllHours @Do
+  @CheckAllHours
   Scenario: CheckAllHours
     And call Clockify.feature@getAllWorkspaces
     And endpoint v1/workspaces/{{idWorkspace}}/time-entries/status/in-progress
