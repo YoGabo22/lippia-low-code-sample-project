@@ -90,7 +90,7 @@ Feature: tp8LowCode
     #Sobre este caso, probé muchas maneras y no encontré forma de que devuelva el código de error 404
     #En todas, devuelve código 400. Aparentemente es algo de Clockify, por lo que pude ver en Internet.
 
-  @EditValueProjectError400 @Do
+  @EditValueProjectError400
   Scenario: EditValueProjectError400
     And call Clockify.feature@getAllWorkspaces
     And endpoint v1/workspaces/{{idWorkspace}}/projects
@@ -105,3 +105,29 @@ Feature: tp8LowCode
     And header Content-Type = application/json
     When execute method PUT
     Then the status code should be 400
+
+  @TpFinal
+    #2. Automatizar en Lippia escenarios para:
+    #a. Consultar las horas registradas.
+    #b. Agregar horas a un proyecto.
+    #c. Editar un campo de algún registro de hora.
+    #d. Eliminar hora registrada.
+  @CheckAllHours @Do
+  Scenario: CheckAllHours
+    And call Clockify.feature@getAllWorkspaces
+    And endpoint v1/workspaces/{{idWorkspace}}/time-entries/status/in-progress
+    And header x-api-key = NTYxNDE2ZjItNDQzMS00YTlkLWEzNWQtNWJiYjFkNjQxNTdh
+    When execute method GET
+    Then the status code should be 200
+
+  @AddHours
+  Scenario: AddHours
+
+
+  @EditHours
+  Scenario: EditHours
+
+
+  @DeleteHours
+  Scenario: DeleteHours
+
