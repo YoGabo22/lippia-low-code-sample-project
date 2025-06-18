@@ -29,20 +29,24 @@ Feature: tp8LowCode
     And header x-api-key = NTYxNDE2ZjItNDQzMS00YTlkLWEzNWQtNWJiYjFkNjQxNTdh
     When execute method GET
     Then the status code should be 200
+    * print response
+    * define idProject = $.[0].id
+
+
 
   @CheckProjectById
   Scenario: CheckProjectById
-    And call Clockify.feature@getAllWorkspaces
-    And endpoint v1/workspaces/{{idWorkspace}}/projects
-    And header x-api-key = NTYxNDE2ZjItNDQzMS00YTlkLWEzNWQtNWJiYjFkNjQxNTdh
-    When execute method GET
-    * define idProject = $.[0].id
+    And call Clockify.feature@GetAllProjects
+    #And endpoint v1/workspaces/{{idWorkspace}}/projects
+    #And header x-api-key = NTYxNDE2ZjItNDQzMS00YTlkLWEzNWQtNWJiYjFkNjQxNTdh
+    #When execute method GET
+   # * define idProject = $.[0].id
     And base url https://api.clockify.me/api/
     And endpoint v1/workspaces/{{idWorkspace}}/projects/{{idProject}}
     And header x-api-key = NTYxNDE2ZjItNDQzMS00YTlkLWEzNWQtNWJiYjFkNjQxNTdh
     When execute method GET
     Then the status code should be 200
-    And response should be $.name = "proyectLowCode1"
+    And response should be $.name = "tp8LowCode"
 
   @EditValueProject
   Scenario: EditValueProject
@@ -122,11 +126,43 @@ Feature: tp8LowCode
 
   @AddHours
   Scenario: AddHours
+    And call Clockify.feature@getAllWorkspaces
+    And endpoint v1/workspaces/{{idWorkspace}}/projects
+    And header x-api-key = NTYxNDE2ZjItNDQzMS00YTlkLWEzNWQtNWJiYjFkNjQxNTdh
+    When execute method GET
+    * define idProject = $.[0].id
+    And endpoint v1/workspaces/{{idWorkspace}}/time-entries
+    And header x-api-key = NTYxNDE2ZjItNDQzMS00YTlkLWEzNWQtNWJiYjFkNjQxNTdh
+    And header Content-Type = "application/json"
+    And set value {{idProject}} of key projectId in body jsons/bodies/addHours.json
+    And set value 2025-06-17T00:01:00Z of key start in body jsons/bodies/addHours.json
+    And set value 2025-06-17T00:05:00Z of key end in body jsons/bodies/addHours.json
+    When execute method POST
+    Then the status code should be 201
 
 
-  @EditHours
+  @EditHours @Do
   Scenario: EditHours
-
+    And call Clockify.feature@getAllWorkspaces
+    And endpoint v1/workspaces/{{idWorkspace}}/users
+    And header x-api-key = NTYxNDE2ZjItNDQzMS00YTlkLWEzNWQtNWJiYjFkNjQxNTdh
+    And execute method GET
+    * define idUser = $.[0].id
+    And endpoint v1/workspaces/{{idWorkspace}}/projects
+    And header x-api-key = NTYxNDE2ZjItNDQzMS00YTlkLWEzNWQtNWJiYjFkNjQxNTdh
+    When execute method GET
+    * define idProject = $.[0].id
+    And endpoint v1/workspaces/{{idWorkspace}}/user/{{idUser}}/time-entries
+    And header x-api-key = NTYxNDE2ZjItNDQzMS00YTlkLWEzNWQtNWJiYjFkNjQxNTdh
+    * define idTimeEntry = $.[0].id
+    And endpoint v1/workspaces/{{{idWorkspace}}/time-entries/{{idTimeEntry}}
+    And header Content-Type = "application/json"
+    And set value {{idProject}} of key projectId in body jsons/bodies/editHours.json
+    And set value {{idTimeEntry}} of key id in body jsons/bodies/editHours.json
+    And set value 2025-06-17T00:10:00Z of key start in body jsons/bodies/editHours.json
+    And set value 2025-06-17T00:15:00Z of key end in body jsons/bodies/editHours.json
+    And execute method PUT
+    Then the status code should be 200
 
   @DeleteHours
   Scenario: DeleteHours

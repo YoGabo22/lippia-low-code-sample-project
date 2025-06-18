@@ -30,7 +30,7 @@ Feature: clockify
     When execute method POST
     Then the status code should be 201
 
-@GetAllProjects @Do
+@GetAllProjects
 Scenario: GetAllWorkProjects
   And call Clockify.feature@getAllWorkspaces
   And endpoint v1/workspaces/{{idWorkspace}}/projects
