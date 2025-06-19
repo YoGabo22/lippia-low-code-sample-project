@@ -21,7 +21,7 @@ Feature: ErrorLoco
     * print response
     * define idProject = $.[0].id
 
-  @CheckProjectById
+  @CheckProjectById @Do
   Scenario: CheckProjectById
     And call Clockify.feature@GetAllProjects
     #And endpoint v1/workspaces/{{idWorkspace}}/projects
